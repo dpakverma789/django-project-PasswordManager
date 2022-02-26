@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from passwordManager.models import Credentials
 from django.contrib.auth.models import User
 from users import urls, views
+from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 
 
@@ -41,6 +42,7 @@ def recovery(request):
                     data.update({'flag': 'failed', 'msg': 'Not Found!'})
                     return render(request, 'recover.html', {'data': data})
                 return render(request, 'password_manager.html', {'data': data})
+            messages.error(request, 'Your Password is Incorrect!')
         return render(request, 'recover.html', {'data': data})
     else:
         return redirect('signin-page')

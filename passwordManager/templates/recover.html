@@ -23,6 +23,16 @@
 				<span>{{data.msg}}</span>
 			</div>
 		{%endif%}
+		{% for msg in messages %}
+			<div class="alert alert-danger alert-dismissible fade show" role="alert"
+				 style="background-color:#ff3333;font-size:20px;
+				 transform: translate(0px, -30px);color:#fff">
+				<span style="margin-left: 50px;">{{msg}}</span>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true" style="font-size:20px;padding:0 10px">&times;</span>
+				</button>
+			</div>
+	    {% endfor %}
 		<input type="text" name="site" id="site" placeholder="Website" required="True"></p>
 		<input type="password" name="pass" id="pass" placeholder="master password" required="True"></p>
         <input type="text" name="hash" id="hash" hidden="true"></p>
