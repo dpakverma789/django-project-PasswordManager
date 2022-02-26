@@ -30,13 +30,13 @@ def recovery(request):
     if request.user.is_authenticated:
         data = {'title': 'PassWord Recovery', 'header': 'RECOVERY',
                 'user': request.user if request.user else 'Guest'}
-        if request.POST and  request.method == 'POST':
-            if check_password(request.user.password, request.POST.get('pass')):
+        if request.POST and request.method == 'POST':
+            if check_password(request.POST.get('pass'), request.user.password):
                 try:
                     cred = Credentials.objects.get(website=request.POST.get('site'))
                     data = {'website': cred.website, 'username': cred.username,
                             'password': cred.password, 'title': 'PassWord Manager',
-                            'header': 'DASHLINE'}
+                            'header': 'DASHLINE', 'user': request.user if request.user else 'Guest'}
                 except:
                     data.update({'flag': 'failed', 'msg': 'Not Found!'})
                     return render(request, 'recover.html', {'data': data})
