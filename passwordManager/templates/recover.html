@@ -1,0 +1,49 @@
+{% extends 'password_manager_base.html' %}
+
+{% block title %}
+	<title>{{data.title}}</title>
+{% endblock %}
+
+{% block navigation %}
+	<div class="navigation-bar">
+		<ul>
+			<li><a href="/manager/save">Home</a></li>
+			<li><a href="/signout">Logout</a></li>
+			<li><a style="position: relative;left: 30cm;">Hi {{data.user}}</a></li>
+		</ul>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<form id="box" action="" method="post">
+		{% csrf_token %}
+		<h1>{{data.header}}</h1>
+		{% if data.flag == 'failed' %}
+			<div class="notify" style="background-color:#ff3333;">
+				<span>{{data.msg}}</span>
+			</div>
+		{%endif%}
+		<input type="text" name="site" id="site" placeholder="Website" required="True"></p>
+		<input type="password" name="pass" id="pass" placeholder="master password" required="True"></p>
+        <input type="text" name="hash" id="hash" hidden="true"></p>
+		<input id="submit" type="submit" onmouseover="hashing()" value="submit"/>
+		<p style="transform:translate(2.2cm,4cm); ">
+			want to save password?
+		<a style="text-decoration: none;" href="/manager/save">Save</a></p>
+	</form>
+    <script type="text/javascript">
+        function hashing()
+        {
+          var password = document.getElementById('pass').value;
+          if (password)
+          {
+            var hashed = CryptoJS.MD5(password);
+            document.getElementById('hash').value = hashed;
+          }
+          else
+          {
+            alert('password Is missing');
+          }
+        }
+    </script>
+{% endblock %}
