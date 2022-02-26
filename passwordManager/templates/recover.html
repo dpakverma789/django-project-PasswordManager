@@ -29,7 +29,7 @@
 				 transform: translate(0px, -30px);color:#fff">
 				<span style="margin-left: 50px;">{{msg}}</span>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true" style="font-size:20px;padding:0 10px">&times;</span>
+					<span aria-hidden="true" style="cursor:pointer;font-size:20px;padding:0 15px">&times;</span>
 				</button>
 			</div>
 	    {% endfor %}
@@ -41,19 +41,4 @@
 			want to save password?
 		<a style="text-decoration: none;" href="/manager/save">Save</a></p>
 	</form>
-    <script type="text/javascript">
-        function hashing()
-        {
-          var password = document.getElementById('pass').value;
-          if (password)
-          {
-            var hashed = CryptoJS.MD5(password);
-            document.getElementById('hash').value = hashed;
-          }
-          else
-          {
-            alert('password Is missing');
-          }
-        }
-    </script>
 {% endblock %}
