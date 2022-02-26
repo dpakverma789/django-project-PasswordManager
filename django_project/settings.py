@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-8l-6y=#g7y@nyw(pet$&_p@d3itt*^2#bqluli=w*_#%q@qx3h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'djangopasswordmanager.herokuapp.com']
+ALLOWED_HOSTS = ['djangopasswordmanager.herokuapp.com']
 
 # Application definition
 
@@ -83,10 +83,11 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djanGo',
-        'USER': 'postgres',
-        'PASSWORD': 'Dpakverma789@',
-        'HOST': 'localhost',
+        'NAME': 'd3d475khf2rkmr',
+        'USER': 'ebuysgpjholjms',
+        'PASSWORD': 'eeb39db26cecb84d9b5391b847991236ae3c3e53df0a97b93c3e27f8a10781d7',
+        'HOST': 'ec2-3-227-195-74.compute-1.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
@@ -133,6 +134,6 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import os
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 django_heroku.settings(locals())
