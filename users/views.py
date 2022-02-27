@@ -38,7 +38,7 @@ def signup(request):
                 users.save()
                 return redirect('signin-page')
             else:
-                messages.info(request, 'Account with this Email already exist')
+                messages.info(request, 'Account with this username already exist')
     return render(request, 'signup.html')
 
 
