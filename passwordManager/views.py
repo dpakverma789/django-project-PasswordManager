@@ -12,11 +12,12 @@ def home(request):
                 'header': 'DASHLINE',
                 'user': request.user if request.user else 'Guest'}
         if bool(request.POST):
-            if Credentials.objects.filter(website=request.POST.get('site')).count() == 0:
+            if Credentials.objects.filter(website=request.POST.get('site'), login_user=request.user).count() == 0:
                 cred = Credentials()
                 cred.website = request.POST.get('site')  # fetching site data from request
                 cred.username = request.POST.get('text')
                 cred.password = request.POST.get('password')
+                cred.login_user = request.user
                 cred.save()  # saving cred data into database
                 data.update({'flag': 'success',  'msg': 'Credentials Saved!'})
                 return render(request, 'password_manager.html', {'data': data})
@@ -34,7 +35,7 @@ def recovery(request):
         if request.POST and request.method == 'POST':
             if check_password(request.POST.get('pass'), request.user.password):
                 try:
-                    cred = Credentials.objects.get(website=request.POST.get('site'))
+                    cred = Credentials.objects.get(website=request.POST.get('site'), login_user=request.user)
                     data = {'website': cred.website, 'username': cred.username,
                             'password': cred.password, 'title': 'PassWord Manager',
                             'header': 'DASHLINE', 'user': request.user if request.user else 'Guest'}
