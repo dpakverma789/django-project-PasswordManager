@@ -39,6 +39,8 @@ def signup(request):
                 return redirect('signin-page')
             else:
                 messages.info(request, 'Account with this username already exist')
+        else:
+            messages.info(request, 'Confirm Password Didn\'t Matached')
     return render(request, 'signup.html')
 
 
