@@ -1,12 +1,25 @@
 
-if(document.getElementById('submit').clicked == true)
-{
-	window.check_submission();
-}
+    function visibility()
+	{
+  		var password = document.getElementsByClassName("pass")[0];
+  		if (password.type === "password")
+  		 {
+    		password.type = "text";
+  		 }
+  		else
+  		 {
+    		password.type = "password";
+  		 }
 
-function check_submission()
-{   
-	alert('asfv');
-	document.getElementById('box').reset();
-}
+	}
+
+	function copy(event)
+    {
+      selector = event.currentTarget.previousElementSibling;
+	  var copyText = document.getElementsByClassName(selector.className)[0];
+	  copyText.select();
+	  copyText.setSelectionRange(0, 99999);
+	  document.execCommand("copy");
+	  event.currentTarget.nextElementSibling.innerHTML = "Copied!";
+	}
 
