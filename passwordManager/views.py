@@ -26,12 +26,13 @@ def pass_encrypt(simple_text, encrypted_password='', key='x'):
 
 def pass_decrypt(password_Encrypted, key='x'):
     splited_password = password_Encrypted.split(key)[:-1]
-    return loopKey(splited_password)
+    return loopKey(splited_password,password_Encrypted)
 
 
-def loopKey(splited_password, orignal_password=''):
+def loopKey(splited_password, password_Encrypted, orignal_password=''):
     sample = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-']
-    sample2 = ['_', '+', '=', '[', ']', '{', '}', '"', "'"]
+    sample2 = ['_', '+', '=', ' ', '[', ']', '{', '}', '"', "'"]
+    is_done = False
     for x in splited_password:
         concat_data = int(x, 16)
         flag = chr(int(concat_data))
@@ -43,7 +44,12 @@ def loopKey(splited_password, orignal_password=''):
             orignal_password += ascii_pass_decrypt
         else:
             orignal_password += str(concat_data)
-    return orignal_password
+        is_done = True
+    if is_done:
+        return orignal_password
+    else:
+        orignal_password = password_Encrypted
+        return orignal_password
 
 
 def home(request):
