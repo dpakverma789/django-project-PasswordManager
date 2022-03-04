@@ -18,7 +18,7 @@ def signin(request):
             else:
                 messages.error(request, 'Your Password is Incorrect!')
         else:
-            messages.error(request, 'You are a Not User!')
+            messages.error(request, 'You are Not a User!')
     return render(request, 'signin.html')
 
 

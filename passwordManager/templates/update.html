@@ -8,9 +8,9 @@
 	<div class="navigation-bar">
 		<ul>
 			<li><a href="/manager/save">Home</a></li>
-			<li><a href="/manager/update/">Update</a></li>
+			<li><a href="/manager/recovery/">Recover</a></li>
 			<li><a href="/signout">Logout</a></li>
-			<li class="user-recover"><a>Hi {{data.user}}</a></li>
+			<li class="user-home"><a>Hi {{data.user}}</a></li>
 		</ul>
 	</div>
 {% endblock %}
@@ -20,7 +20,7 @@
 		{% csrf_token %}
 		<h1>{{data.header}}</h1>
 		{% if data.msg %}
-			<div class="notify" style="background-color:{{data.color}};">
+			<div class="notify" style="background-color:{{data.color}};font-size:16px">
 				<span>{{data.msg}}</span>
 			</div>
 		{%endif%}
@@ -32,7 +32,14 @@
 				</button>
 			</div>
 	    {% endfor %}
-		<input type="text" name="site" class="site" placeholder="Website" required="True">
+		<select class="site" class="dropdown" name="update" style="overflow:scroll;">
+			<option>Please select an option</option>
+    		<option value="website">website</option>
+    		<option value="username">username</option>
+    		<option value="password">password</option>
+  		</select>
+		<input type="text" class="site" name="site" placeholder='for website' required="True">
+		<input type="text" class="text" name="text" placeholder="New value" required="True">
 		<input type="password" name="pass" class="pass" placeholder="master password" required="True">
 		<span id='checkboxx'>
 			<input type="checkbox" onclick="visibility()">Show Password
