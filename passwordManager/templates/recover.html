@@ -8,6 +8,11 @@
 	<div class="navigation-bar">
 		<ul>
 			<li><a href="/manager/save">Home</a></li>
+			{% if data.header == 'DELETE'%}
+				<li><a href="/manager/recovery/">Recover</a></li>
+			{% else %}
+				<li><a href="/manager/delete/">Delete</a></li>
+			{%endif%}
 			<li><a href="/manager/update/">Update</a></li>
 			<li><a href="/signout">Logout</a></li>
 			<li class="user-recover"><a>Hi {{data.user}}</a></li>
