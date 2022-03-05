@@ -76,7 +76,8 @@ def update(request):
                         msg = f"{request.POST.get('update')} has been updated!"
                     else:
                         color = '#ff3333'
-                    data.update({'color': color, 'msg': request.POST.get('update')})
+                        msg = 'Please select the option!'
+                    data.update({'color': color, 'msg': msg})
                 except:
                     data.update({'msg': 'Website not Found!', 'color': '#ff3333'})
                 return render(request, 'update.html', {'data': data})
