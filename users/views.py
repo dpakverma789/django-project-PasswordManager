@@ -24,23 +24,24 @@ def signin(request):
 
 def signup(request):
     if request.method == 'POST' and request.POST:
-        user_email = request.POST.get('email')
-        user_first_name = request.POST.get('first_name')
-        user_last_name = request.POST.get('last_name')
-        user_username = request.POST.get('username')
-        user_master_password = request.POST.get('password')
-        user_password_confirm = request.POST.get('password_confirm')
+        user_email = request.POST.get('email').strip()
+        user_first_name = request.POST.get('first_name').strip()
+        user_last_name = request.POST.get('last_name').strip()
+        user_username = request.POST.get('username').strip()
+        user_master_password = request.POST.get('password').strip()
+        user_password_confirm = request.POST.get('password_confirm').strip()
         if user_master_password == user_password_confirm:
             if User.objects.filter(username=user_username).count() == 0:
                 users = User.objects.create_user(user_username, user_email, user_master_password)
                 users.first_name = user_first_name
                 users.last_name = user_last_name
                 users.save()
+                messages.success(request, 'Account successfully created!')
                 return redirect('signin-page')
             else:
-                messages.info(request, 'Account with this username already exist')
+                messages.error(request, f'Account with \'{user_username}\' already exist')
         else:
-            messages.info(request, 'Confirm Password Didn\'t Matached')
+            messages.warning(request, 'Confirm Password Didn\'t Matached')
     return render(request, 'signup.html')
 
 

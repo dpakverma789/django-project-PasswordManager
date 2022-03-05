@@ -8,9 +8,7 @@ from .password_ecryptor import pass_encrypt, pass_decrypt
 
 def home(request):
     if request.user.is_authenticated:
-        data = {'title': 'PassWord Manager',
-                'header': 'DASHLINE',
-                'user': request.user}
+        data = {'title': 'PassWord Manager', 'header': 'DASHLINE', 'user': request.user}
         if bool(request.POST):
             if Credentials.objects.filter(website=request.POST.get('site'), login_user=request.user).count() == 0:
                 cred = Credentials()
@@ -30,21 +28,26 @@ def home(request):
 
 def recovery(request):
     if request.user.is_authenticated:
-        data = {'title': 'PassWord Recovery', 'header': 'RECOVERY',
-                'user': request.user}
+        header = 'RECOVERY' if 'delete' not in request.path and 'recover' in request.path else 'DELETE'
+        data = {'title': f'PassWord {header.capitalize()}', 'header': header, 'user': request.user}
         if request.POST and request.method == 'POST':
             if check_password(request.POST.get('pass'), request.user.password):
                 try:
                     cred = Credentials.objects.get(website=request.POST.get('site'), login_user=request.user)
-                    password_decrypted = pass_decrypt(cred.password)
-                    data = {'website': cred.website, 'username': cred.username,
-                            'password': password_decrypted, 'title': 'PassWord Manager',
-                            'header': 'DASHLINE', 'user': request.user}
+                    if header == 'RECOVERY' and header != 'DELETE':
+                        password_decrypted = pass_decrypt(cred.password)
+                        data = {'website': cred.website, 'username': cred.username,
+                                'password': password_decrypted, 'title': 'PassWord Manager',
+                                'header': 'DASHLINE', 'user': request.user}
+                    else:
+                        cred.delete()
+                        data.update({'color': '#9933ff', 'msg': 'Credentials Removed!'})
                 except:
                     data.update({'msg': 'Website not Found!', 'color': '#ff3333'})
                     return render(request, 'recover.html', {'data': data})
                 return render(request, 'password_manager.html', {'data': data})
-            messages.error(request, 'Your Password is Incorrect!')
+            else:
+                messages.error(request, 'Your Password is Incorrect!')
         return render(request, 'recover.html', {'data': data})
     else:
         return redirect('signin-page')
@@ -68,7 +71,8 @@ def update(request):
                 except:
                     data.update({'msg': 'Website not Found!', 'color': '#ff3333'})
                 return render(request, 'update.html', {'data': data})
-            messages.error(request, 'Your Password is Incorrect!')
+            else:
+                messages.error(request, 'Your Password is Incorrect!')
         return render(request, 'update.html', {'data': data})
     else:
         return redirect('signin-page')
