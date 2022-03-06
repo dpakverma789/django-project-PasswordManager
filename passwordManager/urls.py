@@ -7,4 +7,5 @@ urlpatterns = [
     path('recovery/', views.recovery, name='recovery-page'),
     path('update/', views.update, name='update-page'),
     path('delete/', views.recovery, name='recovery-page'),
+    path('export/', views.export, name='export-page'),
 ]

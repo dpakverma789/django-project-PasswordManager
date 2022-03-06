@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect
 from passwordManager.models import Credentials
 from django.contrib.auth.models import User
 from users import urls, views
+from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 from .password_ecryptor import pass_encrypt, pass_decrypt
+import xlwt
 
 def home(request):
     if request.user.is_authenticated:
@@ -87,4 +89,36 @@ def update(request):
     else:
         return redirect('signin-page')
 
-    
+
+def export(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = f'attachment; filename="{request.user}.xls"'
+
+    workbook = xlwt.Workbook(encoding='utf-8')
+    worksheet = workbook.add_sheet('Credentials')
+
+    # Sheet header, first row
+    row_num = 1
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Website', 'Username', 'Password']
+
+    for col_num in range(len(columns)):
+        worksheet.write(row_num, col_num, columns[col_num], font_style)
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+
+    rows = Credentials.objects.filter(login_user=request.user)
+    data = rows.values_list('website', 'username', 'password')
+    for row in data:
+        row = list(row)
+        row_num += 1
+        row[2] = pass_decrypt(row[2])
+        for col_num in range(len(row)):
+            worksheet.write(row_num, col_num, row[col_num], font_style)
+
+    workbook.save(response)
+    return response
