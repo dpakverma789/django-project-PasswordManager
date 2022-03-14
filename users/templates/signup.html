@@ -5,66 +5,55 @@
 {% endblock %}
 
 {% block body%}
-    <section class="vh-100">
-        <div class="container py-5 h-100">
-            <h1>password manager</h1>
-            <div class="row d-flex align-items-center justify-content-center h-100">
-               <div class="col-md-8 col-lg-7 col-xl-6">
-                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                       class="img-fluid" alt="Phone image">
-               </div>
-               <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                   {% for msg in messages %}
-                        <div class="alert {{msg.tags}} alert-dismissible fade show" role="alert">
-                            <strong>{{msg}}</strong>
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                        </div>
-                   {% endfor %}
-                    <form method="post" action="">
-                        {% csrf_token %}
-                          <!-- Email input -->
-                        <div class="form-outline mb-4">
-                            <span style="display:flex">
-                                <input type="text" name="first_name" id="form1Example13" required="true"
-                                       class="form-control form-control-lg" placeholder="First Name"/>
-                                <input type="text" name="last_name" id="form1Example13" required="true"
-                                       class="form-control form-control-lg" placeholder="Last Name"/>
-                            </span>
-                        </div>
-
-                        <div class="form-outline mb-4">
-                            <input type="email" name="email" id="form1Example13" required="true"
-                               class="form-control form-control-lg" placeholder="Email" />
-                        </div>
-
-                        <div class="form-outline mb-4">
-                            <input type="text" name="username" id="form1Example13" required="true"
-                                   class="form-control form-control-lg" placeholder="Username"/>
-                        </div>
-
-                          <!-- Password input -->
-                        <div class="form-outline mb-4">
-                            <input type="password" name="password" id="password" required="true"
-                                   class="form-control form-control-lg" placeholder="Password"/>
-                        </div>
-
-                        <div class="form-outline mb-4">
-                            <input type="password" name="password_confirm" id="form1Example23" required="true"
-                                   class="form-control form-control-lg" placeholder="Confirm-Password"/>
-                        </div>
-                        <span id='checkboxx' style="left: 60%;bottom:15px;">
-                            <input type="checkbox" onclick="visibility()">Show Password
-                        </span>
-
-                          <!-- Submit button -->
-                        <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block"/>
-<!--                            <span style="text-align:center">OR </span>-->
-                        <a class="btn btn-primary btn-lg btn-block" href="/">Already Have Account? Login</a>
-                   </form>
-              </div>
-            </div>
+    <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+       {% for msg in messages %}
+        <div class="alert {{msg.tags}} alert-dismissible fade show" role="alert">
+            <strong>{{msg}}</strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
         </div>
-    </section>
+       {% endfor %}
+        <form method="post" action="">
+            {% csrf_token %}
+              <!-- Email input -->
+            <div class="form-outline mb-4">
+                <span style="display:flex">
+                    <input type="text" name="first_name" id="form1Example13" required="true"
+                           class="form-control form-control-lg" placeholder="First Name"/>
+                    <input type="text" name="last_name" id="form1Example13" required="true"
+                           class="form-control form-control-lg" placeholder="Last Name"/>
+                </span>
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="email" name="email" id="form1Example13" required="true"
+                   class="form-control form-control-lg" placeholder="Email" />
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="text" name="username" id="form1Example13" required="true"
+                       class="form-control form-control-lg" placeholder="Username"/>
+            </div>
+
+              <!-- Password input -->
+            <div class="form-outline mb-4">
+                <input type="password" name="password" id="password" required="true"
+                       class="form-control form-control-lg" placeholder="Password"/>
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="password" name="password_confirm" id="form1Example23" required="true"
+                       class="form-control form-control-lg" placeholder="Confirm-Password"/>
+            </div>
+            <span id='checkboxx' style="left: 60%;bottom:15px;">
+                <input type="checkbox" onclick="visibility()">Show Password
+            </span>
+
+              <!-- Submit button -->
+            <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block"/>
+<!--                            <span style="text-align:center">OR </span>-->
+            <a class="btn btn-primary btn-lg btn-block" href="/">Already Have Account? Login</a>
+       </form>
+    </div>
 {% endblock %}
