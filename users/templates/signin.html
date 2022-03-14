@@ -5,39 +5,31 @@
 {% endblock %}
 
 {% block body%}
-    <section class="vh-100">
-        <div class="container py-5 h-100">
-            <h1>password manager</h1>
-            <div class="row d-flex align-items-center justify-content-center h-100">
-               <div class="col-md-8 col-lg-7 col-xl-6">
-                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                       class="img-fluid" alt="Phone image">
-               </div>
-               <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                   {% for msg in messages %}
-                        <div class="alert {{msg.tags}} alert-dismissible fade show" role="alert">
-                            <strong>{{msg}}</strong>
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                        </div>
-                   {% endfor %}
-                    <form method="post" action="">
-                        {% csrf_token %}
-                          <!-- Email input -->
-                            <div class="form-outline mb-4">
-                                <input type="text" name="username" id="form1Example13" class="form-control form-control-lg" />
-                                <label class="form-label" for="form1Example13">Username</label>
-                            </div>
+   <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+       {% for msg in messages %}
+            <div class="alert {{msg.tags}} alert-dismissible fade show" role="alert">
+                <strong>{{msg}}</strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+       {% endfor %}
+        <form method="post" action="">
+            {% csrf_token %}
+              <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <input type="text" name="username" id="form1Example13" class="form-control form-control-lg" />
+                    <label class="form-label" for="form1Example13">Username</label>
+                </div>
 
-                          <!-- Password input -->
-                            <div class="form-outline mb-4">
-                                <input type="password" name="password" id="password" class="form-control form-control-lg" />
-                                <label class="form-label" for="password">Password</label>
-                            </div>
-                            <span id='checkboxx'>
-                                <input type="checkbox" id='check' onclick="visibility()">Show Password
-                            </span>
+              <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <input type="password" name="password" id="password" class="form-control form-control-lg" />
+                    <label class="form-label" for="password">Password</label>
+                </div>
+                <span id='checkboxx'>
+                    <input type="checkbox" id='check' onclick="visibility()">Show Password
+                </span>
 
 <!--                          <div class="d-flex justify-content-around align-items-center mb-4">-->
 <!--                            &lt;!&ndash; Checkbox &ndash;&gt;-->
@@ -54,12 +46,9 @@
 <!--                            <a href="#!">Forgot password?</a>-->
 <!--                          </div>-->
 
-                            <!-- Submit button -->
-                            <input type="submit" value="Login" class="btn btn-primary btn-lg btn-block"/>
-                            <a class="btn btn-primary btn-lg btn-block" href="/signup">Create Account</a>
-                   </form>
-              </div>
-            </div>
-        </div>
-    </section>
+                <!-- Submit button -->
+                <input type="submit" value="Login" class="btn btn-primary btn-lg btn-block"/>
+                <a class="btn btn-primary btn-lg btn-block" href="/signup">Create Account</a>
+       </form>
+   </div>
 {% endblock %}

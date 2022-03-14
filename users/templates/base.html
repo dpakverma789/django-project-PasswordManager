@@ -16,8 +16,19 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-    {% block body %}
-    {% endblock %}
+     <section class="vh-100">
+        <div class="container py-5 h-100">
+            <h1>password manager</h1>
+            <div class="row d-flex align-items-center justify-content-center h-100">
+               <div class="col-md-8 col-lg-7 col-xl-6">
+                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                       class="img-fluid" alt="Phone image">
+               </div>
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+    </section>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
