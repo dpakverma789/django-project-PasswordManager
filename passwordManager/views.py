@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
 from passwordManager.models import Credentials
-from django.contrib.auth.models import User
-from users import urls, views
 from django.http import HttpResponse
 from django.contrib import messages
-from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import check_password
 from .password_ecryptor import pass_encrypt, pass_decrypt
 import xlwt
+
 
 def home(request):
     if request.user.is_authenticated:
