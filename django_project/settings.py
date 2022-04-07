@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-8l-6y=#g7y@nyw(pet$&_p@d3itt*^2#bqluli=w*_#%q@qx3h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.251.76', '127.0.0.1']
+ALLOWED_HOSTS = ['managepassword.herokuapp.com']
 
 # Application definition
 
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -89,10 +91,11 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djanGo',
-        'USER': 'postgres',
-        'PASSWORD': 'Dpakverma789@',
-        'HOST': 'localhost',
+        'NAME': 'dd6oi2k321cidf',
+        'USER': 'wzhqxcubyshkhb',
+        'PASSWORD': '2dafc01e6993504f510124cd59dcb6b4c73f4abe669ce79cbc529ba336d1a34b',
+        'HOST': 'ec2-3-227-195-74.compute-1.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
@@ -131,9 +134,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+django_heroku.settings(locals())
