@@ -110,7 +110,7 @@ def export(request):
     # Sheet body, remaining rows
     font_style = xlwt.XFStyle()
 
-    rows = Credentials.objects.filter(login_user=request.user)
+    rows = Credentials.objects.filter(login_user=request.user).order_by('website')
     data = rows.values_list('website', 'username', 'password')
     for row in data:
         row = list(row)
