@@ -121,3 +121,7 @@ def export(request):
 
     workbook.save(response)
     return response
+
+
+def page_not_found_view(request, exception):
+    return render(request, '404.html')

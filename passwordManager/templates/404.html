@@ -1,0 +1,18 @@
+{% extends 'password_manager_base.html' %}
+{% load static %}
+{% block title %}
+	<title>Opps! 404</title>
+{% endblock %}
+
+{% block content %}
+    <section class="page-not-found">
+        <img src="{% static 'images/ghost.png' %}"/>
+        <article>
+            <p>We Tried but Page not Found</p>
+            <p>Mighty be Someone has stolen our page.</p>
+        </article>
+        <button>
+            <a href="/">Back to Home</a>
+        </button>
+    </section>
+{% endblock %}
