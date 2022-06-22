@@ -9,3 +9,5 @@ urlpatterns = [
     path('delete/', views.recovery, name='recovery-page'),
     path('export/', views.export, name='export-page'),
 ]
+
+handler404 = "passwordManager.views.page_not_found_view"
