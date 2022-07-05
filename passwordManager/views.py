@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 from passwordManager.models import Credentials
 from django.http import HttpResponse
@@ -5,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.hashers import check_password
 from .password_ecryptor import pass_encrypt, pass_decrypt
 import xlwt
+import xlrd
 
 
 def home(request):
@@ -121,6 +123,33 @@ def export(request):
 
     workbook.save(response)
     return response
+
+
+def file_import(request):
+    if request.user.is_authenticated:
+        data = {'title': 'Import PassWord', 'header': 'Import', 'user': request.user}
+        if request.FILES:
+            try:
+                file = request.FILES['file']
+                workbook = xlrd.open_workbook(file.name, file_contents=file.read())
+                sheet = workbook.sheets()[0]
+                credential_set = ([sheet.cell(r, c).value for c in range(sheet.ncols)] for r in range(sheet.nrows))
+                for credentialSet in credential_set:
+                    if '' not in credentialSet and credentialSet[0].lower() != 'website':
+                        if Credentials.objects.filter(website=credentialSet[0], login_user=request.user).count() == 0:
+                            cred = Credentials()
+                            cred.website = credentialSet[0]
+                            cred.username = credentialSet[1]
+                            cred.password = pass_encrypt(credentialSet[2])
+                            cred.login_user = request.user
+                            cred.save()
+            except:
+                data.update({'color': '#ff3333', 'msg': 'Unsupported Format'})
+            else:
+                data.update({'color': '#47d147', 'msg': 'Credentials Saved!'})
+        return render(request, 'import.html', {'data': data})
+    else:
+        return redirect('signin-page')
 
 
 def page_not_found_view(request, exception):

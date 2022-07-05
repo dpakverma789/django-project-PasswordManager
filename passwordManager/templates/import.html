@@ -1,0 +1,47 @@
+{% extends 'password_manager_base.html' %}
+
+{% block title %}
+	<title>{{data.title}}</title>
+{% endblock %}
+
+{% block navigation %}
+	<div class="navigation-bar">
+		<ul>
+			<li><a href="/manager/save">Home</a></li>
+			{% if data.header == 'DELETE'%}
+				<li><a href="/manager/recovery/">Recover</a></li>
+			{% else %}
+				<li><a href="/manager/delete/">Delete</a></li>
+			{%endif%}
+			<li><a href="/manager/update/">Update</a></li>
+			<li><a href="/signout">Logout</a></li>
+			<li class="user-recover"><a>Hi {{data.user}}</a></li>
+		</ul>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<form id="box" action="" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<h1>{{data.header}}</h1>
+		{% if data.msg %}
+			<div class="notify" style="background-color:{{data.color}};">
+				<span>{{data.msg}}</span>
+			</div>
+		{%endif%}
+		{% for msg in messages %}
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<span>{{msg}}</span>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true" style="cursor:pointer;font-size:20px;padding:0 15px">&times;</span>
+				</button>
+			</div>
+	    {% endfor %}
+		<input type="file" name="file" class="site" placeholder="Website" required="True">
+		<input type="password" name="pass" class="pass" placeholder="master password" required="True">
+		<span id='checkboxx'>
+			<input type="checkbox" onclick="visibility()">Show Password
+		</span>
+		<input id="submit" type="submit" value="submit"/>
+	</form>
+{% endblock %}
