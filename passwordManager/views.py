@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 from passwordManager.models import Credentials
 from django.http import HttpResponse
@@ -5,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.hashers import check_password
 from .password_ecryptor import pass_encrypt, pass_decrypt
 import xlwt
+import xlrd
 
 
 def home(request):
@@ -90,37 +92,70 @@ def update(request):
 
 
 def export(request):
-    response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = f'attachment; filename="{request.user}.xls"'
+    if request.user.is_authenticated:
+        response = HttpResponse(content_type='application/ms-excel')
+        response['Content-Disposition'] = f'attachment; filename="{request.user}.xls"'
+        workbook = xlwt.Workbook(encoding='utf-8')
+        worksheet = workbook.add_sheet('Credentials')
+        row_num = 1
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+        columns = ['Website', 'Username', 'Password']
+        for col_num in range(len(columns)):
+            worksheet.write(row_num, col_num, columns[col_num], font_style)
+        font_style = xlwt.XFStyle()
+        rows = Credentials.objects.filter(login_user=request.user).order_by('website')
+        data = rows.values_list('website', 'username', 'password')
+        for row in data:
+            row = list(row)
+            row_num += 1
+            row[2] = pass_decrypt(row[2])
+            for col_num in range(len(row)):
+                worksheet.write(row_num, col_num, row[col_num], font_style)
+        workbook.save(response)
+        return response
+    else:
+        return redirect('signin-page')
 
-    workbook = xlwt.Workbook(encoding='utf-8')
-    worksheet = workbook.add_sheet('Credentials')
 
-    # Sheet header, first row
-    row_num = 1
+def file_import(request):
+    if request.user.is_authenticated:
+        data = {'title': 'Import PassWord', 'header': 'Import', 'user': request.user}
+        if request.FILES:
+            if check_password(request.POST.get('pass'), request.user.password):
+                try:
+                    file = request.FILES['file']
+                    workbook = xlrd.open_workbook(file.name, file_contents=file.read())
+                    sheet = workbook.sheets()[0]
+                    credential_set = ([sheet.cell(r, c).value for c in range(sheet.ncols)] for r in range(sheet.nrows))
+                    for credentialSet in credential_set:
+                        if '' not in credentialSet and credentialSet[0].lower() != 'website':
+                            if Credentials.objects.filter(website=credentialSet[0], login_user=request.user).count() == 0:
+                                cred = Credentials()
+                                cred.website = credentialSet[0]
+                                cred.username = credentialSet[1]
+                                cred.password = pass_encrypt(credentialSet[2])
+                                cred.login_user = request.user
+                                cred.save()
+                except:
+                    data.update({'color': '#ff3333', 'msg': 'Unsupported File Format'})
+                else:
+                    data.update({'color': '#47d147', 'msg': 'Credentials Saved!'})
+            else:
+                messages.error(request, 'Your Password is Incorrect!')
+        return render(request, 'import.html', {'data': data})
+    else:
+        return redirect('signin-page')
 
-    font_style = xlwt.XFStyle()
-    font_style.font.bold = True
 
-    columns = ['Website', 'Username', 'Password']
-
-    for col_num in range(len(columns)):
-        worksheet.write(row_num, col_num, columns[col_num], font_style)
-
-    # Sheet body, remaining rows
-    font_style = xlwt.XFStyle()
-
-    rows = Credentials.objects.filter(login_user=request.user).order_by('website')
-    data = rows.values_list('website', 'username', 'password')
-    for row in data:
-        row = list(row)
-        row_num += 1
-        row[2] = pass_decrypt(row[2])
-        for col_num in range(len(row)):
-            worksheet.write(row_num, col_num, row[col_num], font_style)
-
-    workbook.save(response)
-    return response
+def dashboard(request):
+    if request.user.is_authenticated:
+        data = {'user': request.user}
+        cred_container = ([cred.website, cred.username, pass_decrypt(cred.password)]
+                          for cred in Credentials.objects.filter(login_user=request.user))
+        return render(request, 'dashboard.html', {'cred_container': cred_container, 'data': data})
+    else:
+        return redirect('signin-page')
 
 
 def page_not_found_view(request, exception):

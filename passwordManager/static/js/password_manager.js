@@ -1,25 +1,21 @@
 
-    function visibility()
-	{
-  		var password = document.getElementsByClassName("pass")[0];
-  		if (password.type === "password")
-  		 {
-    		password.type = "text";
-  		 }
-  		else
-  		 {
-    		password.type = "password";
-  		 }
+	function toggle_check(event){
 
+	    var flag_check = event.currentTarget.checked;
+        var dash_check = event.currentTarget.previousElementSibling;
+
+        if (event.currentTarget.previousElementSibling != null){
+            field = event.currentTarget.previousElementSibling;
+        }
+        else{
+            field = event.currentTarget.parentElement.previousElementSibling;
+        }
+
+	    if (flag_check === true){
+    		field.type = "text";
+    		return
+  		 }
+  		field.type = "password";
 	}
 
-	function copy(event)
-    {
-      selector = event.currentTarget.previousElementSibling;
-	  var copyText = document.getElementsByClassName(selector.className)[0];
-	  copyText.select();
-	  copyText.setSelectionRange(0, 99999);
-	  document.execCommand("copy");
-	  event.currentTarget.nextElementSibling.innerHTML = "Copied!";
-	}
 

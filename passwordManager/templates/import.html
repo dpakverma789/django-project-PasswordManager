@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block content %}
-	<form id="box" action="" method="post">
+	<form id="box" action="" method="post" enctype="multipart/form-data">
 		{% csrf_token %}
 		<h1>{{data.header}}</h1>
 		{% if data.msg %}
@@ -37,7 +37,7 @@
 				</button>
 			</div>
 	    {% endfor %}
-		<input type="text" name="site" class="site" placeholder="Website" required="True">
+		<input type="file" name="file" class="site" placeholder="Website" required="True">
 		<input type="password" name="pass" class="pass" placeholder="master password" required="True">
 		<span id='checkboxx'>
 			<input type="checkbox" onclick="toggle_check(event)">Show Password
