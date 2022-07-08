@@ -18,7 +18,6 @@
     <div class="navigation-bar">
         <ul>
             <li><a href="/manager/save">Home</a></li>
-<!--            <li><a href="/manager/recovery/">Recover</a></li>-->
             <li><a href="/manager/update/">Update</a></li>
             <li><a href="/manager/delete/">Delete</a></li>
             <li><a href="/signout">Logout</a></li>
@@ -28,23 +27,27 @@
     </br>
     </br>
     <div class="cards">
-        {% for cred in cred_container %}
-            <div class="card-body">
-                <div class="container">
-                    <div class="website">
-                        <h4>{{cred.0}}</h4>
-                    </div>
-                    <div class="username">
-                        <h5>{{cred.1}}</h5>
-                    </div>
-                    <div class="password">
-<!--                        <h5>{{cred.2}}</h5>-->
-                        <input type="password" id="password" value="{{cred.2}}" readonly="true">
-                        <input type="checkbox" id='dashcheck' onclick="toggle_check(event)"/>
+        {% if cred_container %}
+            {% for cred in cred_container %}
+                <div class="card-body">
+                    <div class="container">
+                        <div class="website">
+                            <h4>{{cred.0}}</h4>
+                        </div>
+                        <div class="username">
+                            <h5>{{cred.1}}</h5>
+                        </div>
+                        <div class="password">
+                            <input type="password" id="password" value="{{cred.2}}" readonly="true">
+                            <input type="checkbox" id='dashcheck' onclick="toggle_check(event)"/>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <img class="dashboard_img_center" src="{% static 'images/ghost.png' %}">
+            <p class="ghost_text">To Make me disappear save your first password</p>
+        {% endif %}
     </div>
     <script src="{% static '/js/password_manager.js' %}"></script>
 </body>
