@@ -151,8 +151,10 @@ def file_import(request):
 def dashboard(request):
     if request.user.is_authenticated:
         data = {'user': request.user}
-        cred_container = ([cred.website, cred.username, pass_decrypt(cred.password)]
-                          for cred in Credentials.objects.filter(login_user=request.user))
+        collections = Credentials.objects.filter(login_user=request.user)
+        cred_container = [[cred.website, cred.username, pass_decrypt(cred.password)] for cred in collections]
+        if not cred_container:
+            cred_container = None
         return render(request, 'dashboard.html', {'cred_container': cred_container, 'data': data})
     else:
         return redirect('signin-page')
