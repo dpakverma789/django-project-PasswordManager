@@ -1,22 +1,7 @@
-
 	function toggle_check(event)
 	{
-	    var flag_check = event.currentTarget.checked;
-        var dash_check = event.currentTarget.previousElementSibling;
-        if (dash_check != null)
-        {
-            field = dash_check;
-        }
-        else
-        {
-            field = event.currentTarget.parentElement.previousElementSibling;
-        }
-	    if (flag_check === true)
-	    {
-    		field.type = "text";
-    		return
-  		}
-  		field.type = "password";
+	    let flag_check = event.currentTarget.checked;
+        let dash_check = event.currentTarget.previousElementSibling;
+        let field = dash_check != null ? dash_check : event.currentTarget.parentElement.previousElementSibling;
+        field.type = flag_check === true ? "text" : "password";
 	}
-
-
