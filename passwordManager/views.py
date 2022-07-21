@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect
 from passwordManager.models import Credentials
 from django.http import HttpResponse
@@ -7,6 +6,8 @@ from django.contrib.auth.hashers import check_password
 from .password_ecryptor import pass_encrypt, pass_decrypt
 import xlwt
 import xlrd
+from datetime import datetime
+import pytz
 
 
 def home(request):
@@ -19,7 +20,7 @@ def home(request):
                 cred.username = request.POST.get('text')
                 cred.login_user = request.user
                 cred.password = pass_encrypt(request.POST.get('password'))
-                cred.save()  # saving cred data into database
+                cred.save()
                 data.update({'color': '#47d147', 'msg': 'Credentials Saved!'})
                 return render(request, 'password_manager.html', {'data': data})
             else:
@@ -94,7 +95,11 @@ def update(request):
 def export(request):
     if request.user.is_authenticated:
         response = HttpResponse(content_type='application/ms-excel')
-        response['Content-Disposition'] = f'attachment; filename="{request.user}.xls"'
+        time_zone = pytz.timezone('Asia/Kolkata')
+        today = datetime.now(time_zone)
+        time_stamp = today.strftime("%d-%B-%Y--%H-%M")
+        file_name = '-'.join((str(request.user), time_stamp))
+        response['Content-Disposition'] = f'attachment; filename="{file_name}.xls"'
         workbook = xlwt.Workbook(encoding='utf-8')
         worksheet = workbook.add_sheet('Credentials')
         row_num = 1
