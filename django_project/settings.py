@@ -145,3 +145,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INACTIVITY_TIME = 300
 SESSION_COOKIE_AGE = INACTIVITY_TIME
+
+# django email config
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'dpak_verma_1996@proton.me'
+EMAIL_HOST_PASSWORD = 'DpakVerma@1996'
