@@ -20,3 +20,7 @@ h1 {
     text-transform: uppercase;
     font-weight: bold !important;
 }
+
+.signin-grid{
+    display: flex;
+}
