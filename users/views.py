@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.views import View
 from passwordManager import urls
 # Create your views here.
 
@@ -48,3 +49,14 @@ def signup(request):
 def signout(request):
     logout(request)
     return redirect('signin-page')
+
+
+class PasswordReset(View):
+
+    def get(self, request):
+        return render(request, 'forgot_password.html')
+
+    def post(self, request):
+        user = User.objects.get(username=request.POST['username'])
+        # user.set_password(request.POST['password'])
+        # user.save()

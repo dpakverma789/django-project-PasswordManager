@@ -2,7 +2,8 @@
 
 body {
     color: #fff !important;
-    background-color: #34495e !important;
+    /*background-color: #34495e !important;*/
+    background-color: #051922 !important;
 }
 
 #checkboxx {
@@ -19,4 +20,8 @@ h1 {
     text-align: center;
     text-transform: uppercase;
     font-weight: bold !important;
+}
+
+.signin-grid{
+    display: flex;
 }

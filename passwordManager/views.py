@@ -94,31 +94,36 @@ def update(request):
 
 def export(request):
     if request.user.is_authenticated:
-        response = HttpResponse(content_type='application/ms-excel')
-        time_zone = pytz.timezone('Asia/Kolkata')
-        today = datetime.now(time_zone)
-        time_stamp = today.strftime("%d-%B-%Y--%H-%M")
-        file_name = '-'.join((str(request.user), time_stamp))
-        response['Content-Disposition'] = f'attachment; filename="{file_name}.xls"'
-        workbook = xlwt.Workbook(encoding='utf-8')
-        worksheet = workbook.add_sheet('Credentials')
-        row_num = 1
-        font_style = xlwt.XFStyle()
-        font_style.font.bold = True
-        columns = ['Website', 'Username', 'Password']
-        for col_num in range(len(columns)):
-            worksheet.write(row_num, col_num, columns[col_num], font_style)
-        font_style = xlwt.XFStyle()
         rows = Credentials.objects.filter(login_user=request.user).order_by('website')
-        data = rows.values_list('website', 'username', 'password')
-        for row in data:
-            row = list(row)
-            row_num += 1
-            row[2] = pass_decrypt(row[2])
-            for col_num in range(len(row)):
-                worksheet.write(row_num, col_num, row[col_num], font_style)
-        workbook.save(response)
-        return response
+        if rows:
+            response = HttpResponse(content_type='application/ms-excel')
+            time_zone = pytz.timezone('Asia/Kolkata')
+            today = datetime.now(time_zone)
+            time_stamp = today.strftime("%d-%B-%Y--%H-%M")
+            file_name = '-'.join((str(request.user), time_stamp))
+            response['Content-Disposition'] = f'attachment; filename="{file_name}.xls"'
+            workbook = xlwt.Workbook(encoding='utf-8')
+            worksheet = workbook.add_sheet('Credentials')
+            row_num = 1
+            font_style = xlwt.XFStyle()
+            font_style.font.bold = True
+            columns = ['Website', 'Username', 'Password']
+            for col_num in range(len(columns)):
+                worksheet.write(row_num, col_num, columns[col_num], font_style)
+            font_style = xlwt.XFStyle()
+            data = rows.values_list('website', 'username', 'password')
+            for row in data:
+                row = list(row)
+                row_num += 1
+                row[2] = pass_decrypt(row[2])
+                for col_num in range(len(row)):
+                    worksheet.write(row_num, col_num, row[col_num], font_style)
+            workbook.save(response)
+            return response
+        else:
+            data = {'title': 'PassWord Manager', 'header': 'DASHLINE', 'user': request.user, 'color': '#ff3333',
+                    'msg': 'Nothing to export'}
+            return render(request, 'password_manager.html', {'data': data})
     else:
         return redirect('signin-page')
 
@@ -156,8 +161,8 @@ def file_import(request):
 def dashboard(request):
     if request.user.is_authenticated:
         data = {'user': request.user}
-        collections = Credentials.objects.filter(login_user=request.user)
-        cred_container = sorted([[cred.website, cred.username, pass_decrypt(cred.password)] for cred in collections])
+        collections = Credentials.objects.filter(login_user=request.user).order_by('website')
+        cred_container = [[cred.website, cred.username, pass_decrypt(cred.password)] for cred in collections]
         if not cred_container:
             cred_container = None
         return render(request, 'dashboard.html', {'cred_container': cred_container, 'data': data})

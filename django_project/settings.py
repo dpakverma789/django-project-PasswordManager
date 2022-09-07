@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from django.contrib.messages import constants as messages
+import platform
 import os
 try:
     import django_heroku
@@ -36,7 +37,7 @@ SECRET_KEY = '#'.join(GET_FULL_KEY)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.managepassword.herokuapp.com', 'managepassword.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -53,7 +54,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -98,11 +98,10 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dd6oi2k321cidf',
-        'USER': 'wzhqxcubyshkhb',
-        'PASSWORD': '2dafc01e6993504f510124cd59dcb6b4c73f4abe669ce79cbc529ba336d1a34b',
-        'HOST': 'ec2-3-227-195-74.compute-1.amazonaws.com',
-        'PORT': '5432'
+        'NAME': 'djanGo',
+        'USER': 'postgres',
+        'PASSWORD': 'Dpakverma789@' if platform.system() == 'Windows' else 'root',
+        'HOST': 'localhost',
     }
 }
 
@@ -162,13 +161,3 @@ except:
     django_on_heroku.settings(locals())
 
 SESSION_COOKIE_AGE = 300
-
-# HTTPS SETTINGS
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-
-# HSTS SETTINGS
-SECURE_HSTS_SECONDS = 3153600
-SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
