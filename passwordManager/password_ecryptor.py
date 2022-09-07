@@ -1,5 +1,5 @@
-
-def pass_encrypt(simple_text, encrypted_password='', key='q5e2c'):
+# new key q5e2c
+def pass_encrypt(simple_text, encrypted_password='', key='x'):
     try:
         for i in simple_text:
             if i.isalpha():
@@ -17,7 +17,7 @@ def pass_encrypt(simple_text, encrypted_password='', key='q5e2c'):
         return encrypted_password
 
 
-def pass_decrypt(password_Encrypted, key='q5e2c'):
+def pass_decrypt(password_Encrypted, key='x'):
     splited_password = password_Encrypted.split(key)[:-1]
     return loopKey(splited_password,password_Encrypted)
 
