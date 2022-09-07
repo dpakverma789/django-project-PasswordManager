@@ -98,11 +98,10 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dd6oi2k321cidf',
-        'USER': 'wzhqxcubyshkhb',
-        'PASSWORD': '2dafc01e6993504f510124cd59dcb6b4c73f4abe669ce79cbc529ba336d1a34b',
-        'HOST': 'ec2-3-227-195-74.compute-1.amazonaws.com',
-        'PORT': 5432
+        'NAME': 'djanGo',
+        'USER': 'postgres',
+        'PASSWORD': 'Dpakverma789@' if platform.system() == 'Windows' else 'root',
+        'HOST': 'localhost',
     }
 }
 
