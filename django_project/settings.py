@@ -34,7 +34,7 @@ GET_FULL_KEY = (SECRET_KEY_SEG_1, SECRET_KEY_SEG_2, SECRET_KEY_SEG_3, SECRET_KEY
 SECRET_KEY = '#'.join(GET_FULL_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['managepassword.herokuapp.com']
 
