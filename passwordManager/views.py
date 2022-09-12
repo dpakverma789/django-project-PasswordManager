@@ -8,6 +8,8 @@ import xlwt
 import xlrd
 from datetime import datetime
 import pytz
+import random
+import string
 
 
 def home(request):
@@ -15,11 +17,12 @@ def home(request):
         data = {'title': 'PassWord Manager', 'header': 'DASHLINE', 'user': request.user}
         if bool(request.POST):
             if Credentials.objects.filter(website=request.POST.get('site'), login_user=request.user).count() == 0:
+                key = ''.join(random.sample(string.ascii_lowercase + string.digits, 3))
                 cred = Credentials()
                 cred.website = request.POST.get('site')  # fetching site data from request
                 cred.username = request.POST.get('text')
                 cred.login_user = request.user
-                cred.password = pass_encrypt(request.POST.get('password'))
+                cred.password = pass_encrypt(request.POST.get('password'), key=key)
                 cred.save()
                 data.update({'color': '#47d147', 'msg': 'Credentials Saved!'})
                 return render(request, 'password_manager.html', {'data': data})
@@ -65,6 +68,7 @@ def update(request):
             if check_password(request.POST.get('pass'), request.user.password):
                 try:
                     cred = Credentials.objects.get(website=request.POST.get('site'), login_user=request.user)
+                    key = ''.join(random.sample(string.ascii_lowercase + string.digits, 3))
                     if request.POST.get('update') == 'website':
                         cred.website = request.POST.get('text')
                         is_done = True
@@ -72,7 +76,7 @@ def update(request):
                         cred.username = request.POST.get('text')
                         is_done = True
                     if request.POST.get('update') == 'password':
-                        cred.password = pass_encrypt(request.POST.get('text'))
+                        cred.password = pass_encrypt(request.POST.get('text'), key=key)
                         is_done = True
                     if is_done:
                         cred.save()
@@ -141,10 +145,11 @@ def file_import(request):
                     for credentialSet in credential_set:
                         if '' not in credentialSet and credentialSet[0].lower() != 'website':
                             if Credentials.objects.filter(website=credentialSet[0], login_user=request.user).count() == 0:
+                                key = ''.join(random.sample(string.ascii_lowercase + string.digits, 3))
                                 cred = Credentials()
                                 cred.website = credentialSet[0]
                                 cred.username = credentialSet[1]
-                                cred.password = pass_encrypt(credentialSet[2])
+                                cred.password = pass_encrypt(credentialSet[2], key=key)
                                 cred.login_user = request.user
                                 cred.save()
                 except:
