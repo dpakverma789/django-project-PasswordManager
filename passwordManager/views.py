@@ -33,10 +33,10 @@ def home(request):
         return redirect('signin-page')
 
 
-def recovery(request):
+def recovery(request, website=None):
     if request.user.is_authenticated:
         header = 'RECOVERY' if 'delete' not in request.path and 'recover' in request.path else 'DELETE'
-        data = {'title': f'PassWord {header.capitalize()}', 'header': header, 'user': request.user}
+        data = {'title': f'PassWord {header.capitalize()}', 'header': header, 'user': request.user, 'website': website}
         if request.POST and request.method == 'POST':
             if check_password(request.POST.get('pass'), request.user.password):
                 try:

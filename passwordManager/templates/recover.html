@@ -8,7 +8,7 @@
 	<div class="navigation-bar">
 		<ul>
 			<li><a href="/manager/save">Home</a></li>
-			<li><a href="/manager/delete/">Delete</a></li>
+			<li><a href="/manager/export/">Export</a></li>
 			<li><a href="/manager/update/">Update</a></li>
 			<li><a href="/signout">Logout</a></li>
 			<li class="user-recover"><a>Hi {{data.user}}</a></li>
@@ -33,7 +33,11 @@
 				</button>
 			</div>
 	    {% endfor %}
-		<input type="text" name="site" class="site" placeholder="Website" required="True">
+		{% if data.website %}
+			<input type="text" name="site" class="site" value="{{data.website}}" readonly="True">
+		{% else %}
+			<input type="text" name="site" class="site" placeholder="website" required="True">
+		{% endif %}
 		<input type="password" name="pass" class="pass" placeholder="master password" required="True">
 		<span id='checkboxx'>
 			<input type="checkbox" onclick="toggle_check(event)">Show Password

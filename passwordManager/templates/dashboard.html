@@ -11,6 +11,14 @@
         body{
             overflow:scroll;
         }
+        a{
+            color: rgba(5, 25, 34, 0.2);
+        }
+
+        a:hover{
+            color: #051922;
+        }
+
     </style>
     <title>Dashboard</title>
 </head>
@@ -19,7 +27,7 @@
         <ul>
             <li><a href="/manager/save">Home</a></li>
             <li><a href="/manager/update/">Update</a></li>
-            <li><a href="/manager/delete/">Delete</a></li>
+            <li><a href="/manager/export/">Export</a></li>
             <li><a href="/signout">Logout</a></li>
             <li class="user-home"><a>Hi {{data.user}}</a></li>
         </ul>
@@ -32,14 +40,19 @@
                 <div class="card-body">
                     <div class="container">
                         <div class="website">
-                            <h4>{{cred.0}}</h4>
+                            <h4>
+                                {{cred.0}}
+                                <a href="{% url 'recovery-page' %}{{cred.0}}">
+                                    <i class="fa-solid fa-trash element" id="trash"></i>
+                                </a>
+                            </h4>
                         </div>
                         <div class="username">
                             <h5>{{cred.1}}</h5>
                         </div>
                         <div class="password">
                             <input type="password" id="password" value="{{cred.2}}" readonly="true">
-                            <input type="checkbox" id='dashcheck' onclick="toggle_check(event)"/>
+                            <input type="checkbox" class="element" id='dashcheck' onclick="toggle_check(event)"/>
                         </div>
                     </div>
                 </div>
@@ -50,5 +63,6 @@
         {% endif %}
     </div>
     <script src="{% static '/js/password_manager.js' %}"></script>
+    <script src="https://kit.fontawesome.com/9d51f353dc.js" crossorigin="anonymous"></script>
 </body>
 </html>
