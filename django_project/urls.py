@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin-page'),
     path('', include('users.urls')),
     path('manager/', include('passwordManager.urls')),
-    url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
-    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    path('accounts/', include('django.contrib.auth.urls')),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 ]
