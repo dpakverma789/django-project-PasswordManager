@@ -1,47 +1,47 @@
+import string
 
 
-def pass_encrypt(simple_text, encrypted_password='', key='ec2'):
+def text_encryption(plain_text, salt='ec2'):
+    encrypted_plain_text = ''
     try:
-        for i in simple_text:
+        for i in plain_text:
             if i.isalpha():
-                ascii_pass_encrypt = ord(i)
-                hexa_pass = hex(ascii_pass_encrypt)
+                ascii_text = ord(i)
+                hex_text = hex(ascii_text)
             elif i.isnumeric():
-                hexa_pass = hex(int(i))
+                hex_text = hex(int(i))
             else:
-                ascii_pass_encrypt = ord(i)
-                hexa_pass = hex(ascii_pass_encrypt)
-            encrypted_password += hexa_pass[2:] + key
+                ascii_text = ord(i)
+                hex_text = hex(ascii_text)
+            encrypted_plain_text += hex_text[2:] + salt
     except:
-        encrypted_password = simple_text
+        encrypted_plain_text = plain_text
     finally:
-        return encrypted_password
+        return encrypted_plain_text
 
 
-def pass_decrypt(password_Encrypted):
-    key = password_Encrypted[-3:]
-    splited_password = password_Encrypted.split(key)[:-1]
-    return loopKey(splited_password, password_Encrypted)
-
-
-def loopKey(splited_password, password_Encrypted, orignal_password=''):
-    sample = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-']
-    sample2 = ['_', '+', '=', '[', ']', '{', '}', '"', "'", ' ']
+def text_decryption(encrypted_text_received):
+    original_plain_text = ''
+    salt = encrypted_text_received[-3:]
+    encrypted_text_body = encrypted_text_received.split(salt)[:-1]
     is_done = False
-    for x in splited_password:
+    special_characters = ''.join((string.punctuation, ' '))
+    for x in encrypted_text_body:
         concat_data = int(x, 16)
-        flag = chr(int(concat_data))
-        if flag.isalpha():
-            ascii_pass_decrypt = str(flag)
-            orignal_password += ascii_pass_decrypt
-        elif flag in sample or flag in sample2:
-            ascii_pass_decrypt = str(flag)
-            orignal_password += ascii_pass_decrypt
+        decrypted_char = chr(int(concat_data))
+        if decrypted_char.isalpha():
+            ascii_pass_decrypt = str(decrypted_char)
+            original_plain_text += ascii_pass_decrypt
+        elif decrypted_char in special_characters:
+            ascii_pass_decrypt = str(decrypted_char)
+            original_plain_text += ascii_pass_decrypt
         else:
-            orignal_password += str(concat_data)
+            original_plain_text += str(concat_data)
         is_done = True
     if is_done:
-        return orignal_password
+        return original_plain_text
     else:
-        orignal_password = password_Encrypted
-        return orignal_password
+        original_plain_text = encrypted_text_received
+        return original_plain_text
+
+

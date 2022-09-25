@@ -3,7 +3,7 @@ from passwordManager.models import Credentials
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
-from .password_ecryptor import pass_encrypt, pass_decrypt
+from .password_ecryptor import *
 import xlwt
 import xlrd
 from datetime import datetime
@@ -22,7 +22,7 @@ def home(request):
                 cred.website = request.POST.get('site')  # fetching site data from request
                 cred.username = request.POST.get('text')
                 cred.login_user = request.user
-                cred.password = pass_encrypt(request.POST.get('password'), key=key)
+                cred.password = text_encryption(plain_text=request.POST.get('password'), salt=key)
                 cred.save()
                 data.update({'color': '#47d147', 'msg': 'Credentials Saved!'})
                 return render(request, 'password_manager.html', {'data': data})
@@ -42,7 +42,7 @@ def recovery(request, website=None):
                 try:
                     cred = Credentials.objects.get(website=request.POST.get('site'), login_user=request.user)
                     if header == 'RECOVERY' and header != 'DELETE':
-                        password_decrypted = pass_decrypt(cred.password)
+                        password_decrypted = text_decryption(encrypted_text_received=cred.password)
                         data = {'website': cred.website, 'username': cred.username,
                                 'password': password_decrypted, 'title': 'PassWord Manager',
                                 'header': 'DASHLINE', 'user': request.user}
@@ -76,7 +76,7 @@ def update(request):
                         cred.username = request.POST.get('text')
                         is_done = True
                     if request.POST.get('update') == 'password':
-                        cred.password = pass_encrypt(request.POST.get('text'), key=key)
+                        cred.password = text_encryption(plain_text=request.POST.get('text'), salt=key)
                         is_done = True
                     if is_done:
                         cred.save()
@@ -119,7 +119,7 @@ def export(request):
             for row in data:
                 row = list(row)
                 row_num += 1
-                row[2] = pass_decrypt(row[2])
+                row[2] = text_decryption(encrypted_text_received=row[2])
                 for col_num in range(len(row)):
                     worksheet.write(row_num, col_num, row[col_num], font_style)
             workbook.save(response)
@@ -149,7 +149,7 @@ def file_import(request):
                                 cred = Credentials()
                                 cred.website = credentialSet[0]
                                 cred.username = credentialSet[1]
-                                cred.password = pass_encrypt(credentialSet[2], key=key)
+                                cred.password = text_encryption(plain_text=credentialSet[2], salt=key)
                                 cred.login_user = request.user
                                 cred.save()
                 except:
@@ -167,7 +167,7 @@ def dashboard(request):
     if request.user.is_authenticated:
         data = {'user': request.user}
         collections = Credentials.objects.filter(login_user=request.user).order_by('website')
-        cred_container = [[cred.website, cred.username, pass_decrypt(cred.password)] for cred in collections]
+        cred_container = [[cred.website, cred.username, text_decryption(encrypted_text_received=cred.password)] for cred in collections]
         if not cred_container:
             cred_container = None
         return render(request, 'dashboard.html', {'cred_container': cred_container, 'data': data})
