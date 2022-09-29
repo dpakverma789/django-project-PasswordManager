@@ -105,7 +105,7 @@ def export(request):
             today = datetime.now(time_zone)
             time_stamp = today.strftime("%d-%B-%Y--%H-%M")
             file_name = '-'.join((str(request.user), time_stamp))
-            response['Content-Disposition'] = f'attachment; filename="{file_name}.xls"'
+            response['Content-Disposition'] = f'attachment; filename="{file_name}.xlsx"'
             workbook = xlwt.Workbook(encoding='utf-8')
             worksheet = workbook.add_sheet('Credentials')
             row_num = 1
