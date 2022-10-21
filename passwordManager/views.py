@@ -60,10 +60,10 @@ def recovery(request, website=None):
         return redirect('signin-page')
 
 
-def update(request):
+def update(request, website=None):
     if request.user.is_authenticated:
         is_done = False
-        data = {'title': 'PassWord Update', 'header': 'UPDATE', 'user': request.user}
+        data = {'title': 'PassWord Update', 'header': 'UPDATE', 'user': request.user, 'website': website}
         if request.POST and request.method == 'POST':
             if check_password(request.POST.get('pass'), request.user.password):
                 try:
@@ -153,7 +153,7 @@ def file_import(request):
                                 cred.login_user = request.user
                                 cred.save()
                 except:
-                    data.update({'color': '#ff3333', 'msg': 'Unsupported File Format'})
+                    data.update({'color': '#ff3333', 'msg': 'Not Exported by this App'})
                 else:
                     data.update({'color': '#47d147', 'msg': 'Credentials Saved!'})
             else:

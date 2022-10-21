@@ -39,7 +39,11 @@
     		<option value="username">username</option>
     		<option value="password">password</option>
   		</select>
-		<input type="text" class="site" name="site" placeholder='for website' required="True">
+		{% if data.website %}
+			<input type="text" name="site" class="site" value="{{data.website}}" readonly="True">
+		{% else %}
+			<input type="text" name="site" class="site" placeholder="for website" required="True">
+		{% endif %}
 		<input type="text" class="text" name="text" placeholder="New value" required="True">
 		<input type="password" name="pass" class="pass" placeholder="master password" required="True">
 		<span id='checkboxx'>
