@@ -16,3 +16,16 @@
 	        return false
 	   }
 	}
+
+	function fileValidation(){
+        const extension_set = ['xls', 'xlsx'];
+        let fileInput = document.getElementById('import_file');
+        let fileName = fileInput.value;
+        let extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+        if (!extension_set.includes(extension)){
+            alert("Only Excel Sheet is Allowed!");
+            fileInput.value = '';
+            return false;
+        }
+        return true;
+    }

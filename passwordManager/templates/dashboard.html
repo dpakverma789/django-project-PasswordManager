@@ -26,7 +26,7 @@
     <div class="navigation-bar">
         <ul>
             <li><a href="/manager/save">Home</a></li>
-            <li><a href="/manager/update/">Update</a></li>
+            <li><a href="/manager/import/">Import</a></li>
             <li><a href="/manager/export/">Export</a></li>
             <li><a href="/signout">Logout</a></li>
             <li class="user-home"><a>Hi {{data.user}}</a></li>
@@ -44,6 +44,9 @@
                                 {{cred.0}}
                                 <a href="{% url 'recovery-page' %}{{cred.0}}">
                                     <i class="fa-solid fa-trash element" id="trash"></i>
+                                </a>
+                                <a href="{% url 'update-page' %}{{cred.0}}">
+                                    <i class="fa-solid fa-pen-to-square" id="edit-pen"></i>
                                 </a>
                             </h4>
                         </div>
