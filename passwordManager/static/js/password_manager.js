@@ -29,3 +29,14 @@
         }
         return true;
     }
+
+    function searchFunction(){
+        let search_value = document.getElementById('search_bar').value.toLowerCase();
+        let search_collection = document.getElementsByClassName('website');
+        let length_of_list = search_collection.length
+        for(let i=0; i < length_of_list; i++){
+            let search_result = search_collection[i].innerText.toLowerCase();
+            let card_body = search_collection[i].parentNode.parentNode;
+            card_body.style.display = (search_value != "" && search_result.indexOf(search_value) == -1)? "none" : "block";
+        }
+    }
