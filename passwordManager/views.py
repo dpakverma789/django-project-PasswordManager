@@ -109,11 +109,11 @@ def export(request):
             workbook = xlwt.Workbook(encoding='utf-8')
             worksheet = workbook.add_sheet('Credentials')
             row_num = 1
-            font_style = xlwt.XFStyle()
-            font_style.font.bold = True
+            font_style = xlwt.easyxf('font: bold 1, height 240')
             columns = ['Website', 'Username', 'Password']
             for col_num in range(len(columns)):
                 worksheet.write(row_num, col_num, columns[col_num], font_style)
+                worksheet.col(col_num).width = 8 * 1000
             font_style = xlwt.XFStyle()
             data = rows.values_list('website', 'username', 'password')
             for row in data:
