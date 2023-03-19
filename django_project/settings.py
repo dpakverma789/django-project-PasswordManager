@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from django.contrib.messages import constants as messages
+import platform
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -90,14 +91,12 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dd6oi2k321cidf',
-        'USER': 'wzhqxcubyshkhb',
-        'PASSWORD': '2dafc01e6993504f510124cd59dcb6b4c73f4abe669ce79cbc529ba336d1a34b',
-        'HOST': 'ec2-3-227-195-74.compute-1.amazonaws.com',
-        'PORT': 5432
+        'NAME': 'django_projects',
+        'USER': 'postgres',
+        'PASSWORD': 'Dpakverma789@' if platform.system() in ('Windows', 'win32') else 'root',
+        'HOST': 'localhost',
     }
 }
 
