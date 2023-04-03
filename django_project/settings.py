@@ -23,18 +23,18 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY_SEG_1 = os.getenv('SECRET_KEY_SEG_1')
-# SECRET_KEY_SEG_2 = os.getenv('SECRET_KEY_SEG_2')
-# SECRET_KEY_SEG_3 = os.getenv('SECRET_KEY_SEG_3')
-# SECRET_KEY_SEG_4 = os.getenv('SECRET_KEY_SEG_4')
-# GET_FULL_KEY = (SECRET_KEY_SEG_1, SECRET_KEY_SEG_2, SECRET_KEY_SEG_3, SECRET_KEY_SEG_4)
-# SECRET_KEY = '#'.join(GET_FULL_KEY)
-SECRET_KEY = 'django-insecure-8l-6y=#g7y@nyw(pet$&_p@d3itt*^2#bqluli=w*_#%q@qx3h'
+SECRET_KEY_SEG_1 = os.getenv('SECRET_KEY_SEG_1')
+SECRET_KEY_SEG_2 = os.getenv('SECRET_KEY_SEG_2')
+SECRET_KEY_SEG_3 = os.getenv('SECRET_KEY_SEG_3')
+SECRET_KEY_SEG_4 = os.getenv('SECRET_KEY_SEG_4')
+GET_FULL_KEY = (SECRET_KEY_SEG_1, SECRET_KEY_SEG_2, SECRET_KEY_SEG_3, SECRET_KEY_SEG_4)
+SECRET_KEY = '#'.join(GET_FULL_KEY)
+# SECRET_KEY = 'django-insecure-8l-6y=#g7y@nyw(pet$&_p@d3itt*^2#bqluli=w*_#%q@qx3h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -94,11 +94,10 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
+        'NAME': 'djanGo',
         'USER': 'postgres',
-        'PASSWORD': 'tt5dKNefOISRs2gJmx8m',
-        'HOST': 'containers-us-west-58.railway.app',
-        'PORT': 7035
+        'PASSWORD': 'Dpakverma789@' if platform.system() == 'Windows' else 'odoo',
+        'HOST': 'localhost',
     }
 }
 
@@ -159,13 +158,3 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
-
-# HTTPS SETTINGS
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-
-# HSTS SETTINGS
-SECURE_HSTS_SECONDS = 3153600
-SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
