@@ -93,9 +93,9 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djanGo',
+        'NAME': 'password_manager',
         'USER': 'postgres',
-        'PASSWORD': 'Dpakverma789@' if platform.system() == 'Windows' else 'odoo',
+        'PASSWORD': 'Dpak789@' if platform.system() == 'Windows' else 'odoo',
         'HOST': 'localhost',
     }
 }
