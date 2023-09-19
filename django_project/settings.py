@@ -96,7 +96,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'django-password-manager',
         'USER': 'postgres',
-        'PASSWORD': 'Dpakverma789@' if platform.system() == 'Windows' else 'odoo',
+        'PASSWORD': 'Dpak789@' if platform.system() == 'Windows' else 'odoo',
         'HOST': 'localhost',
     }
 }
