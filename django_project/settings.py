@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'passwordManager',
-    'users'
+    'users',
+    'import_export'
 ]
 
 MIDDLEWARE = [
@@ -93,7 +94,7 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djanGo',
+        'NAME': 'django-password-manager',
         'USER': 'postgres',
         'PASSWORD': 'Dpakverma789@' if platform.system() == 'Windows' else 'odoo',
         'HOST': 'localhost',
