@@ -1,5 +1,6 @@
 from django.urls import path
 from passwordManager import views
+from passwordManager import api
 
 urlpatterns = [
     # path(route,view,kwargs,name)
@@ -11,8 +12,8 @@ urlpatterns = [
     path('export/', views.export, name='export-page'),
     path('import/', views.file_import, name='import-page'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('api/<login_user>/', views.fetch_credentials, name='fetch-data'),
-    path('api/data/post/', views.post_credentials, name='post-data'),
+    path('api/get/<login_user>/', api.fetch_credentials, name='fetch-data'),
+    path('api/post/', api.post_credentials, name='post-data'),
 ]
 
 
