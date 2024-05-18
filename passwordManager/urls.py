@@ -11,6 +11,9 @@ urlpatterns = [
     path('export/', views.export, name='export-page'),
     path('import/', views.file_import, name='import-page'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('api/<login_user>/', views.fetch_credentials, name='fetch-data'),
+    path('api/data/post/', views.post_credentials, name='post-data'),
 ]
+
 
 handler404 = "passwordManager.views.page_not_found_view"

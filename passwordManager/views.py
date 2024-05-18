@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
-from passwordManager.models import Credentials
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .models import Credentials
+from .serializer import CredentialSerializer
 from .password_ecryptor import *
 import xlwt
 import xlrd
@@ -177,3 +180,18 @@ def dashboard(request):
 
 def page_not_found_view(request, exception):
     return render(request, '404.html')
+
+
+@api_view(['GET'])
+def fetch_credentials(request, login_user=None):
+    queryset = Credentials.objects.filter(login_user=login_user)
+    serializer = CredentialSerializer(queryset, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def post_credentials(request):
+    serializer = CredentialSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)

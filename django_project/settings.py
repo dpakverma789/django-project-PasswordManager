@@ -28,7 +28,8 @@ SECRET_KEY_SEG_2 = os.getenv('SECRET_KEY_SEG_2')
 SECRET_KEY_SEG_3 = os.getenv('SECRET_KEY_SEG_3')
 SECRET_KEY_SEG_4 = os.getenv('SECRET_KEY_SEG_4')
 GET_FULL_KEY = (SECRET_KEY_SEG_1, SECRET_KEY_SEG_2, SECRET_KEY_SEG_3, SECRET_KEY_SEG_4)
-SECRET_KEY = '#'.join(GET_FULL_KEY)
+# SECRET_KEY = '#'.join(GET_FULL_KEY)
+SECRET_KEY = 'django-insecure-8l-6y=#g7y@nyw(pet$&_p@d3itt*^2#bqluli=w*_#%q@qx3h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -46,7 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'passwordManager',
     'users',
-    'import_export'
+    'import_export',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
