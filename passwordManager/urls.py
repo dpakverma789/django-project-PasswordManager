@@ -12,8 +12,10 @@ urlpatterns = [
     path('export/', views.export, name='export-page'),
     path('import/', views.file_import, name='import-page'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('api/get/<login_user>/', api.fetch_credentials, name='fetch-data'),
-    path('api/post/', api.post_credentials, name='post-data'),
+    # path('api/get/<login_user>/', api.fetch_credentials, name='fetch-data'),
+    path('api/post/fetch-cred/', api.fetch_credentials, name='fetch-data'),
+    path('api/post/save-cred/', api.post_credentials, name='post-data'),
+    path('api/post/delete-cred/', api.delete_credentials, name='delete-data'),
 ]
 
 
