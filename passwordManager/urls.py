@@ -16,6 +16,7 @@ urlpatterns = [
     path('api/post/fetch-cred/', api.fetch_credentials, name='fetch-data'),
     path('api/post/save-cred/', api.post_credentials, name='post-data'),
     path('api/post/delete-cred/', api.delete_credentials, name='delete-data'),
+    path('api/post/update-cred/', api.update_credentials, name='update-data'),
 ]
 
 
