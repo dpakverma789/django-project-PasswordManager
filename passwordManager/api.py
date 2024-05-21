@@ -55,7 +55,6 @@ def delete_credentials(request):
 def update_credentials(request):
     response = queryset = False
     message = 'Invalid Data'
-    cred_to_update = None
     login_user = request.data.get('login_user')
     website = request.data.get('website')
     column_name = request.data.get('columnName')

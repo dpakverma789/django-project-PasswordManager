@@ -33,6 +33,10 @@ def home(request):
         return redirect('signin-page')
 
 
+def api(request):
+    return render(request, 'api.html')
+
+
 def recovery(request, website=None):
     if request.user.is_authenticated:
         header = 'RECOVERY' if 'delete' not in request.path and 'recover' in request.path else 'DELETE'
