@@ -9,20 +9,28 @@ import xlrd
 from datetime import datetime
 import pytz
 import random
-import string
 
 
 def home(request):
+    flag = True
     if request.user.is_authenticated:
         data = {'title': 'PassWord Manager', 'header': 'DASHLINE', 'user': request.user}
         if bool(request.POST):
             if Credentials.objects.filter(website=request.POST.get('site'), login_user=request.user).count() == 0:
-                key = ''.join(random.sample(string.digits, 3))
                 cred = Credentials()
                 cred.website = request.POST.get('site')  # fetching site data from request
                 cred.username = request.POST.get('text')
                 cred.login_user = request.user
-                cred.password = text_encryption(plain_text=request.POST.get('password'), salt=key)
+                while flag:
+                    key = random.randint(100, 999)
+                    encrypted_text = text_encryption(plain_text=request.POST.get('password'), salt=key)
+                    try:
+                        text_decryption(encrypted_text_received=encrypted_text)
+                    except:
+                        continue
+                    else:
+                        cred.password = encrypted_text
+                        flag = False
                 cred.save()
                 data.update({'color': '#47d147', 'msg': 'Credentials Saved!'})
                 return render(request, 'password_manager.html', {'data': data})
@@ -67,12 +75,12 @@ def recovery(request, website=None):
 def update(request, website=None):
     if request.user.is_authenticated:
         is_done = False
+        flag = True
         data = {'title': 'PassWord Update', 'header': 'UPDATE', 'user': request.user, 'website': website}
         if request.POST and request.method == 'POST':
             if check_password(request.POST.get('pass'), request.user.password):
                 try:
                     cred = Credentials.objects.get(website=request.POST.get('site'), login_user=request.user)
-                    key = ''.join(random.sample(string.digits, 3))
                     if request.POST.get('update') == 'website':
                         cred.website = request.POST.get('text')
                         is_done = True
@@ -80,7 +88,16 @@ def update(request, website=None):
                         cred.username = request.POST.get('text')
                         is_done = True
                     if request.POST.get('update') == 'password':
-                        cred.password = text_encryption(plain_text=request.POST.get('text'), salt=key)
+                        while flag:
+                            key = random.randint(100, 999)
+                            encrypted_text = text_encryption(plain_text=request.POST.get('text'), salt=key)
+                            try:
+                                text_decryption(encrypted_text_received=encrypted_text)
+                            except:
+                                continue
+                            else:
+                                cred.password = encrypted_text
+                                flag = False
                         is_done = True
                     if is_done:
                         cred.save()
@@ -138,6 +155,7 @@ def export(request):
 
 def file_import(request):
     if request.user.is_authenticated:
+        flag = True
         data = {'title': 'Import PassWord', 'header': 'Import', 'user': request.user}
         if request.FILES:
             if check_password(request.POST.get('pass'), request.user.password):
@@ -149,11 +167,20 @@ def file_import(request):
                     for credentialSet in credential_set:
                         if '' not in credentialSet and credentialSet[0].lower() != 'website':
                             if Credentials.objects.filter(website=credentialSet[0], login_user=request.user).count() == 0:
-                                key = ''.join(random.sample(string.digits, 3))
                                 cred = Credentials()
                                 cred.website = credentialSet[0]
                                 cred.username = credentialSet[1]
-                                cred.password = text_encryption(plain_text=credentialSet[2], salt=key)
+                                flag = True
+                                while flag:
+                                    key = random.randint(100, 999)
+                                    encrypted_text = text_encryption(plain_text=credentialSet[2], salt=key)
+                                    try:
+                                        text_decryption(encrypted_text_received=encrypted_text)
+                                    except:
+                                        continue
+                                    else:
+                                        cred.password = encrypted_text
+                                        flag = False
                                 cred.login_user = request.user
                                 cred.save()
                 except:
