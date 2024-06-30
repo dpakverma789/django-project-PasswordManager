@@ -33,7 +33,7 @@ SECRET_KEY = '#'.join(GET_FULL_KEY)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.62.35']
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
 # Application definition
 
@@ -95,10 +95,10 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django-password-manager',
-        'USER': 'postgres',
-        'PASSWORD': 'Dpak789@' if platform.system() == 'Windows' else 'odoo',
-        'HOST': 'localhost',
+        'NAME': 'kfhbtkpx',
+        'USER': 'kfhbtkpx',
+        'PASSWORD': 'NGMu8vBZn4HtXHM1QUbB3QJNyQRDM1wr',
+        'HOST': 'snuffleupagus.db.elephantsql.com'
     }
 }
 
@@ -158,4 +158,14 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+# HTTPS SETTINGS
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+
+# HSTS SETTINGS
+SECURE_HSTS_SECONDS = 3153600
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS =True
 
