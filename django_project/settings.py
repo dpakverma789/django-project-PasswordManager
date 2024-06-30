@@ -14,6 +14,10 @@ from pathlib import Path
 from django.contrib.messages import constants as messages
 import platform
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,17 +27,12 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY_SEG_1 = os.getenv('SECRET_KEY_SEG_1')
-SECRET_KEY_SEG_2 = os.getenv('SECRET_KEY_SEG_2')
-SECRET_KEY_SEG_3 = os.getenv('SECRET_KEY_SEG_3')
-SECRET_KEY_SEG_4 = os.getenv('SECRET_KEY_SEG_4')
-GET_FULL_KEY = (SECRET_KEY_SEG_1, SECRET_KEY_SEG_2, SECRET_KEY_SEG_3, SECRET_KEY_SEG_4)
-SECRET_KEY = '#'.join(GET_FULL_KEY)
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -167,13 +166,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
-# HTTPS SETTINGS
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-
-# HSTS SETTINGS
-SECURE_HSTS_SECONDS = 3153600
-SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS =True
 
