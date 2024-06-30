@@ -1,0 +1,45 @@
+{% extends 'password_manager_base.html' %}
+{% load static %}
+{% block title %}
+<title>API Documentation</title>
+{% endblock %}
+
+{% block content %}
+<section>
+    <article class="api-doc">
+        <h2>Fetching Records</h2>
+        <code>
+            "API-Endpoint": /manager/api/post/fetch-cred/ <br/>
+            "Payload": { "login_user" : "registered_username" } <br/>
+            "Note": login user is registered username and it is mandatory <br/>
+        </code>
+        <h2>Saving Records</h2>
+        <code>
+            "API-Endpoint": /manager/api/post/save-cred/ <br/>
+            "Payload": { "website": "test-website", "username": "test-username", "password": "test-password",
+            "login_user": "registered_username" } <br/>
+            "Note": login user is registered username and all key are mandatory <br/>
+        </code>
+        <h2>Deleting Records</h2>
+        <code>
+            "API-Endpoint": /manager/api/post/delete-cred/ <br/>
+            "Payload": { "website": "test-website", "login_user": "registered_username" } <br/>
+            "Note": login user is registered username and it is mandatory, if website is passed in payload, it will
+            delete given webisite<br/>
+            if website is kept blank, it will all records for the given login user<br/>
+        </code>
+        <h2>Updating Record</h2>
+        <code>
+            "API-Endpoint": /manager/api/post/update-cred/ <br/>
+            "Payload": { "website": "test-website", "columnName": "password",
+            "columnValue": "new_password", "login_user": "registered_username" } <br/>
+            "Note": login user is registered username and all are mandatory <br/>
+        </code>
+    </article>
+    <br/>
+    <br/>
+    <button>
+        <a href="/" style="text-decoration:none">Logout</a>
+    </button>
+</section>
+{% endblock %}

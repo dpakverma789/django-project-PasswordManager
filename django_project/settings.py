@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'passwordManager',
-    'users'
+    'users',
+    'import_export',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -165,7 +167,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
-
 # HTTPS SETTINGS
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -174,4 +175,5 @@ SECURE_SSL_REDIRECT = True
 # HSTS SETTINGS
 SECURE_HSTS_SECONDS = 3153600
 SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS =True
+
