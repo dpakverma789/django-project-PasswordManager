@@ -1,5 +1,10 @@
 from django.contrib import admin
 from passwordManager.models import Credentials
-# Register your models here.
+from import_export.admin import ExportActionMixin, ImportMixin
 
-admin.site.register(Credentials)
+
+class CredentialsAdmin(ExportActionMixin, ImportMixin, admin.ModelAdmin):
+    list_display = ('website', 'username', 'password', 'login_user')
+
+
+admin.site.register(Credentials, CredentialsAdmin)

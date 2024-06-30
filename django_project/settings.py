@@ -33,7 +33,7 @@ SECRET_KEY = '#'.join(GET_FULL_KEY)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.62.35']
 
 # Application definition
 
@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'passwordManager',
-    'users'
+    'users',
+    'import_export',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -93,11 +95,10 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
+        'NAME': 'django-password-manager',
         'USER': 'postgres',
-        'PASSWORD': 'tt5dKNefOISRs2gJmx8m',
-        'HOST': 'containers-us-west-58.railway.app',
-        'PORT': 7035
+        'PASSWORD': 'Dpak789@' if platform.system() == 'Windows' else 'odoo',
+        'HOST': 'localhost',
     }
 }
 
@@ -158,13 +159,3 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
-
-# HTTPS SETTINGS
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-
-# HSTS SETTINGS
-SECURE_HSTS_SECONDS = 3153600
-SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
