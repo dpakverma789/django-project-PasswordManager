@@ -94,13 +94,22 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'kfhbtkpx',
+#         'USER': 'kfhbtkpx',
+#         'PASSWORD': 'NGMu8vBZn4HtXHM1QUbB3QJNyQRDM1wr',
+#         'HOST': 'snuffleupagus.db.elephantsql.com'
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'kfhbtkpx',
-        'USER': 'kfhbtkpx',
-        'PASSWORD': 'NGMu8vBZn4HtXHM1QUbB3QJNyQRDM1wr',
-        'HOST': 'snuffleupagus.db.elephantsql.com'
+        'NAME': 'password-manager-database',
+        'USER': 'password-manager-database_owner',
+        'PASSWORD': '5GTKQmvb6CBL',
+        'HOST': 'ep-wispy-dawn-a5qdxbcu.us-east-2.aws.neon.tech'
     }
 }
 
