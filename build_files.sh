@@ -3,6 +3,6 @@ pip install -r requirements.txt
 echo "======> REQUIREMENTS INSTALLED <======"
 
 echo "======> COLLECTING STATIC FILES <======"
-python manage.py collectstatic --noinput --clear
+python3 manage.py collectstatic --noinput
 echo "======> STATIC FILES COLLECTED <======"
 
