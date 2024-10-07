@@ -23,7 +23,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = 'vral^6cho2(vloxc=x-5lx+_700wa+amjqgaw8w@apb^(q7ara'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
