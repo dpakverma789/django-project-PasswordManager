@@ -1,3 +1,17 @@
+#!/bin/bash
+
+# Install pip if not available
+if ! command -v pip &> /dev/null
+then
+    echo "pip not found, installing..."
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    python get-pip.py --user
+fi
+
+# Activate virtual environment (if necessary)
+python -m venv venv
+source venv/bin/activate
+
 echo "======> INSTALLING REQUIREMENTS <======"
 pip install -r requirements.txt
 echo "======> REQUIREMENTS INSTALLED <======"
