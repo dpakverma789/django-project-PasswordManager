@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from django.contrib.messages import constants as messages
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,13 +57,9 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'https://managerpass.vercel.app'
-]
+CORS_ALLOWED_ORIGINS = ['https://password-manager-plus.vercel.app']
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://managerpass.vercel.app'
-]
+CSRF_TRUSTED_ORIGINS = ['https://password-manager-plus.vercel.app']
 
 ROOT_URLCONF = 'django_project.urls'
 
@@ -103,13 +101,14 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 #         'HOST': 'snuffleupagus.db.elephantsql.com'
 #     }
 # }
+# Do not expose your Neon credentials to the browser
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'password-manager-database',
-        'USER': 'password-manager-database_owner',
-        'PASSWORD': '5GTKQmvb6CBL',
-        'HOST': 'ep-wispy-dawn-a5qdxbcu.us-east-2.aws.neon.tech'
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST')
     }
 }
 
