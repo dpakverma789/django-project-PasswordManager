@@ -16,7 +16,6 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
@@ -29,7 +28,6 @@ DEBUG = False
 ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -89,19 +87,7 @@ MESSAGE_TAGS = {
 
 WSGI_APPLICATION = 'django_project.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'kfhbtkpx',
-#         'USER': 'kfhbtkpx',
-#         'PASSWORD': 'NGMu8vBZn4HtXHM1QUbB3QJNyQRDM1wr',
-#         'HOST': 'snuffleupagus.db.elephantsql.com'
-#     }
-# }
-# Do not expose your Neon credentials to the browser
+# Do not expose your database credentials
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -111,10 +97,6 @@ DATABASES = {
         'HOST': os.environ.get('DB_HOST')
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -130,9 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
