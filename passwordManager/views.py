@@ -5,9 +5,9 @@ from django.contrib.auth.hashers import check_password
 from .models import Credentials
 from .password_ecryptor import *
 import xlwt
-import xlrd
 from datetime import datetime
 import pytz
+import pandas as pd
 import random
 
 
@@ -161,10 +161,10 @@ def file_import(request):
             if check_password(request.POST.get('pass'), request.user.password):
                 try:
                     file = request.FILES['file']
-                    workbook = xlrd.open_workbook(file.name, file_contents=file.read())
-                    sheet = workbook.sheets()[0]
-                    credential_set = ([sheet.cell(r, c).value for c in range(sheet.ncols)] for r in range(sheet.nrows))
-                    for credentialSet in credential_set:
+                    df = pd.read_excel(file, dtype=str)
+                    df = df.fillna('')
+                    data_list = df.values.tolist()
+                    for credentialSet in data_list:
                         if '' not in credentialSet and credentialSet[0].lower() != 'website':
                             if Credentials.objects.filter(website=credentialSet[0], login_user=request.user).count() == 0:
                                 cred = Credentials()
