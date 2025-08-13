@@ -14,9 +14,9 @@ et_xmlfile==2.0.0
 gunicorn==20.1.0
 idna==3.4
 import-export==0.3.1
-numpy
 openpyxl==3.1.5
-pandas==2.3.0
+pandas==2.1.0 --no-binary pandas
+numpy==1.26.0 --no-binary numpy
 psycopg2-binary
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
