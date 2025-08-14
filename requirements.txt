@@ -15,8 +15,8 @@ gunicorn==20.1.0
 idna==3.4
 import-export==0.3.1
 openpyxl==3.1.5
-pandas==2.2.3 --no-binary pandas
-numpy==1.19.3 --no-binary numpy
+pandas --no-binary pandas
+numpy --no-binary numpy
 psycopg2-binary
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
