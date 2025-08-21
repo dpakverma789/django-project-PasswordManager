@@ -7,7 +7,7 @@
       "config": {
         "maxLambdaSize": "250mb",
         "runtime": "python3.9",
-        "installCommand": "pip install --no-binary :all: -r requirements.txt --target .vercel/python"
+        "excludeFiles": "{**/*.pyc,__pycache__/**,tests/**,docs/**,.git/**,*.md,*.sqlite3,migrations/**}"
       }
     },
     {

@@ -1,0 +1,27 @@
+
+
+body {
+    color: #fff !important;
+    /*background-color: #34495e !important;*/
+    background-color: #051922 !important;
+}
+
+#checkboxx {
+    position: relative;
+    left: 60%;
+    bottom: 45px;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-variant: small-caps;
+    font-size: 15px;
+}
+
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold !important;
+}
+
+.signin-grid{
+    display: flex;
+}
